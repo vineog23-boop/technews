@@ -13,11 +13,15 @@ Arquivo vivo. Atualizar ao fim de cada aula/módulo.
     (versionado, valores `local_*`, como no professor).
   - `infra/database.js` com `query()` (client `pg`, abre/fecha a cada
     chamada). Alinhado ao commit `02d4cb5`: `connect()` dentro do
-    `try`, `throw error` no `catch` e log das credenciais.
+    `try`, `throw error` no `catch` e log das credenciais. SSL ligado
+    só fora de `development` (commit `73bead6`).
   - `GET /api/v1/status` retornando `updated_at`, versão do Postgres,
     `max_connections` e `opened_connections`.
   - Teste de integração do endpoint de status em
     `test/integration/api/v1/status/get.test.js`.
+  - Banco de produção na nuvem (Neon, plano free) e deploy na Vercel.
+    As credenciais ficam no `.env.production` (fora do git) e nas
+    Environment Variables da Vercel.
 - **Próximos passos prováveis:** confirmar com o aluno qual aula vem
   agora (não assumir).
 
@@ -40,6 +44,12 @@ Formato:
   personalizados, sem `license`; scripts `build` e `start` extras.
 - **Env:** `.env.development` versionado com valores `local_*`
   (como no professor); o `.gitignore` abre exceção para ele.
+- **Banco de produção:** o professor usa o ElephantSQL (encerrado);
+  aqui usei o Neon (free). O Neon entrega uma `DATABASE_URL`; separei
+  nas cinco variáveis `POSTGRES_*` que o código já lê.
+- **Env de produção:** `.env.production` fica fora do git (regra
+  `.env*`) e os mesmos valores são cadastrados na Vercel; variável
+  nova só vale após novo deploy.
 - **Calculadora:** ainda existe aqui; no commit `02d4cb5` do
   professor não encontrei `models/calculadora.js` (não confirmado).
 
@@ -53,7 +63,8 @@ Itens para atacar **só depois** de terminar o curso (ou o módulo):
 - Atualizações de Next/React além do que o curso usa.
 - Texto provisório do `<h1>` da home.
 - Remover o `console.log` das credenciais (inclui a senha) do
-  `infra/database.js` quando o professor remover.
+  `infra/database.js` quando o professor remover. Depois, trocar a
+  senha do Neon (ela apareceu em logs e no chat).
 - Pool de conexões (hoje abre/fecha uma conexão por `query()`).
 - Decidir se cria `README.md`, `.nvmrc` e `.prettierignore` como o
   professor.
