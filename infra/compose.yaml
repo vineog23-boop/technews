@@ -1,8 +1,7 @@
 services:
   database:
     image: "postgres:16.0-alpine3.18"
-    environment:
-      POSTGRES_USER: "admin"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?Defina POSTGRES_PASSWORD no arquivo .env}"
+    env_file:
+      - ../.env.development
     ports:
       - "5432:5432"
