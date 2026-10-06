@@ -52,6 +52,20 @@ Formato:
   nova só vale após novo deploy.
 - **Calculadora:** ainda existe aqui; no commit `02d4cb5` do
   professor não encontrei `models/calculadora.js` (não confirmado).
+- **Migrations (node-pg-migrate):** professor usa v6 com `exports.up`
+  (CJS); aqui está instalada a v9, que gera ESM (`export const up`)
+  e exige `export const shorthands`. `--envPath` continua existindo.
+- **Migrations ainda não criadas:** o commit `578b6d9` do Felipe
+  ("adds migration scripts") só traz scripts e `DATABASE_URL`, sem
+  arquivo de migration. Criei `create-users` por antecipação e já
+  reverti (tabela e arquivo removidos). A primeira migration real
+  deve vir da aula.
+- **`DATABASE_URL`:** o `node-pg-migrate` lê essa variável. Em
+  `.env.development` (local, versionado) ficou a URL local. As
+  credenciais do Neon **não** vão nesse arquivo; ficam só no
+  `.env.production` e na Vercel.
+- **Versões instaladas:** `node-pg-migrate` 9.0.0 (curso: 6.x) e
+  `dotenv` 18.0.5 (curso: 16.4.4). Next/React já listados acima.
 
 ## Refatorar depois
 
