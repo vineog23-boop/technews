@@ -69,10 +69,11 @@ Formato:
 - **Endpoint `/api/v1/migrations` (commit `d385b69`):** `node-pg-migrate`
   v9 não tem `export default`; uso `import { runner as migrationRunner }`.
   Também fechei o `dbClient` no 405 (o professor não fecha). Criei
-  `jest.config.js` (dotenv + `next/jest`) e `--runInBand`, mas **sem**
-  `dotenv-expand`: `DATABASE_URL` segue literal no `.env.development`.
-  SSL passou a `NODE_ENV === "production"` (Jest roda como `test`).
-  Testes em `test/integration/api/v1/migrations/` (get e post).
+  `jest.config.js` (dotenv + `next/jest`), `--runInBand`, `dotenv-expand`
+  com interpolação na `DATABASE_URL` do `.env.development`, e
+  `getSSLValues()` no `infra/database.js` com `NODE_ENV === "production"`
+  (Jest roda como `test`). Testes em `test/integration/api/v1/migrations/`
+  (get e post).
 
 ## Refatorar depois
 

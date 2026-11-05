@@ -31,7 +31,7 @@ async function getNewClient() {
     password: process.env.POSTGRES_PASSWORD,
     // SSL só em produção (Neon exige). No Jest o NODE_ENV é "test",
     // por isso não dá para usar "!== development".
-    ssl: process.env.NODE_ENV === "production" ? true : false,
+    ssl: getSSLValues(),
   });
 
   await client.connect();
@@ -42,3 +42,13 @@ export default {
   query,
   getNewClient,
 };
+
+function getSSLValues() {
+  if (process.env.POSTGRES_CA) {
+    return {
+      ca: process.env.POSTGRES_CA,
+    };
+  }
+
+  return process.env.NODE_ENV === "production" ? true : false;
+}
